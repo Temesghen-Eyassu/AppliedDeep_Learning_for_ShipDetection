@@ -21,8 +21,8 @@ It is organized for development in **PyCharm** and can also be run from the comm
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Temesghen-Eyassu/DeepLearning_for_ShipDetection-.git
-cd DeepLearning_for_ShipDetection-
+git clone https://github.com/Temesghen-Eyassu/AppliedDeep_Learning_for_ShipDetection.git
+cd AppliedDeep_Learning_for_ShipDetection
 git lfs pull   # ensure Git LFS is installed for large files
 
 ### 2. Install dependencies
