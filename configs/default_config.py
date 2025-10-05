@@ -11,20 +11,28 @@ config = {
         "val_split": 0.2,                                                                      # Fraction of dataset used for validation (20%)
     },
     "training": {
-        "epochs": 50,                                                                          # Number of times the model will see the entire dataset
-        "lr": 1e-3,                                                                            # Learning rate for optimizer
-        "optimizer": "adam",                                                                   # Optimization algorithm (Adam)
-        "scheduler": "cosine",                                                                 # Learning rate scheduler type (cosine decay)
-        "loss": "bce_dice",                                                                    # Loss function (Binary Cross-Entropy + Dice Loss)-suitable for segmentation tasks with imbalanced data.
-        "weight_decay": 0.0                                                                    # L2 regularization term to prevent overfitting
+        "epochs": 50,                                                                          # Maximum number of epochs
+        "lr": 1e-3,                                                                            # Initial learning rate
+        "optimizer": "adam",                                                                   # Optimizer type
+        "scheduler": "plateau",                                                                # "plateau" or "cosine" or None
+        "loss": "bce_dice",                                                                    # Loss choice (uses src.utils.BCEDiceLoss)
+        "weight_decay": 0.0,                                                                   # L2 regularization (Adam)
+        # Early stopping configuration:
+        "early_stopping": {
+            "enabled": True,                                                                   # Turn early stopping on/off
+            "monitor": "val_dice",                                                             # Which metric to monitor: "val_loss" or "val_dice" or "val_iou"
+            "mode": "max",                                                                     # "max" if larger is better (dice, iou); "min" for loss
+            "patience": 5,                                                                     # Number of epochs with no improvement to wait before stopping
+            "min_delta": 1e-4                                                                  # Minimum change to qualify as improvement
+        }
     },
     "model": {
-        "in_channels": 2,                                                                      # Number of channels in input images, which are 2 a-VV and VH
-        "out_channels": 1,                                                                     # Number of channels in output masks which is 1- (binary mask)
-        "features": [32, 64, 128],                                                             # Number of filters in each layer of the U-Net
+        "in_channels": 2,                                                                      # Number of channels in input images (VV + VH)
+        "out_channels": 1,                                                                     # Output mask channels (binary)
+        "features": [32, 64, 128],                                                             # U-Net filter sizes
     },
     "logging": {
-        "save_dir": "checkpoints",                                                             # Folder to save trained model checkpoints
-        "log_interval": 50,                                                                    # Print training info every 50 batches
+        "save_dir": "checkpoints",                                                             # Folder to save model checkpoints
+        "log_interval": 50,                                                                    # Print training info every N batches
     }
 }

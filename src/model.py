@@ -1,6 +1,6 @@
 # PyTorch and supporting libraries
 import torch                                            # Main PyTorch package, provides Tensors
-import torch.nn as nn                                   # Neural network modules (Conv2d, BatchNorm2d, ReLU, Sequential, ModuleList)
+import torch.nn as nn                                   # Neural network modules (Conv2d, BatchNorm2d, Sequential, ModuleList)
 import torch.nn.functional as F                         # Stateless functions like max_pool2d, interpolate, relu
 
 
@@ -66,6 +66,7 @@ class UNet(nn.Module):
         x: input tensor (B, in_channels, H, W)
         returns: output tensor (B, out_channels, H, W)
         """
+
         skips = []  # List to store skip connections
 
 

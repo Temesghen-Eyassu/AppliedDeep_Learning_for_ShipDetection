@@ -88,7 +88,7 @@ def iou_score(y_true, y_pred_logits, threshold=0.1, smooth=1e-6):      # Interse
     return (intersection + smooth) / (union + smooth)
 
 
-def normalize_per_channel(img):                                       # Normalize each channel of an image to zero mean and unit variance. img shape: H x W x C
+def normalize_per_channel(img):                                        # Normalize each channel of an image to zero mean and unit variance. img shape: H x W x C
 
     for c in range(img.shape[2]):
         img[:,:,c] = (img[:,:,c] - img[:,:,c].mean()) / (img[:,:,c].std() + 1e-6)

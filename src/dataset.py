@@ -1,3 +1,4 @@
+
 import os, glob                                                                # For file path operations and listing files
 import torch                                                                   # PyTorch library
 import numpy as np                                                             # For numerical operations on arrays
@@ -64,14 +65,15 @@ def get_dataloaders(cfg):
     train_masks, val_masks = mask_paths[:split], mask_paths[split:]
 
     # Define augmentations for training
+
     train_transform = A.Compose([
         A.HorizontalFlip(p=0.5),                                                    # Random horizontal flip
-        # A.VerticalFlip(p=0.5),                                                    # Random vertical flip
+        # A.VerticalFlip(p=0.5),                                                    # Random vertical flip (commented out)
         A.RandomBrightnessContrast(p=0.3),                                          # Random brightness/contrast
         A.Rotate(limit=30, p=0.5),                                                  # Random rotation up to ±30 degrees
-        A.Affine(translate_percent=0.1, scale=(0.9,1.1), rotate=(-10,10), p=0.5)    # Random affine transform
+        A.Affine(translate_percent=0.1, scale=(0.9, 1.1), rotate=(-10, 10), p=0.5)  # Random affine transform
     ])
-    val_transform = None                                                            # No augmentations for validation
+    val_transform = None                                                           # No augmentations for validation
 
     # Create dataset objects
     train_ds = ShipDataset(train_imgs, train_masks, transform=train_transform)
